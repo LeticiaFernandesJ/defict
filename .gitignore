@@ -1,0 +1,26 @@
+# deps
+node_modules/
+**/node_modules/
+
+# build
+frontend/dist/
+frontend/dev-dist/
+
+# env — NUNCA versionar segredos
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+# supabase local
+supabase/.branches/
+supabase/.temp/
+
+# logs / os
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

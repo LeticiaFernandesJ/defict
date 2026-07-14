@@ -1,0 +1,374 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:wght@500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cor-primaria: #1b2a4a;
+  --cor-superficie: #f5f0e8;
+  --cor-destaque: #b5622a;
+  --cor-branco: #ffffff;
+  --cor-texto-sec: #6b7a99;
+  --cor-verde: #4caf82;
+  --cor-vermelho: #e05252;
+
+  --borda-radius: 16px;
+  --sombra-card: 0 2px 12px rgba(0, 0, 0, 0.07);
+  --bottom-nav-height: 72px;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --bottom-nav-height: 0px;
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-surface text-primary font-sans antialiased;
+    margin: 0;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+
+  /* 16px base evita zoom no iOS */
+  input, select, textarea {
+    font-size: 16px;
+  }
+
+  /* Scrollbars ocultas em todo o app */
+  * {
+    scrollbar-width: none;
+  }
+  *::-webkit-scrollbar {
+    display: none;
+  }
+
+  ::selection {
+    background: var(--cor-destaque);
+    color: #fff;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-branco rounded-card shadow-card;
+    padding: 18px 20px;
+  }
+
+  /* Cabeçalho de página no conteúdo (fiel à referência) */
+  .ph1 {
+    @apply font-display font-semibold text-primary;
+    font-size: 26px;
+    line-height: 1.15;
+  }
+  .psub {
+    @apply text-textSecondary;
+    font-size: 13px;
+    margin-top: 2px;
+  }
+
+  /* Utilitários fiéis à referência */
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .mut {
+    color: var(--cor-texto-sec);
+    font-size: 13px;
+  }
+  .bar {
+    height: 8px;
+    border-radius: 6px;
+    background: #ede6da;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+  .fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.4s ease;
+  }
+  .badge {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 20px;
+    display: inline-block;
+  }
+  .badge-green {
+    background: #e4f3ea;
+    color: #2e7d57;
+  }
+  .badge-red {
+    background: rgba(224, 82, 82, 0.12);
+    color: var(--cor-vermelho);
+  }
+  .badge-blue {
+    background: #e3eef6;
+    color: var(--cor-agua);
+  }
+
+  /* Input compacto de valor (Configurações) — parece um valor, mas é editável */
+  .edit-inp {
+    text-align: right;
+    font-size: 14px;
+    color: var(--cor-primaria);
+    background: #fff;
+    border: 1px solid #e7decf;
+    border-radius: 8px;
+    padding: 6px 10px;
+    max-width: 170px;
+    outline: none;
+  }
+  .edit-inp:focus {
+    border-color: var(--cor-destaque);
+  }
+
+  /* Rótulo de campo dentro de modais */
+  .lb-modal {
+    font-size: 12px;
+    color: var(--cor-texto-sec);
+    margin: 0 0 4px;
+  }
+
+  /* Chips de seleção/valor (local de aplicação, tolerância, nutrientes) */
+  .fchip {
+    @apply inline-flex items-center gap-1 cursor-pointer transition-colors;
+    font-size: 13px;
+    padding: 8px 13px;
+    border-radius: 10px;
+    border: 1px solid #e7decf;
+    background: #fff;
+    color: var(--cor-texto-sec);
+  }
+  .fchip-on {
+    background: #f3e4d8;
+    border-color: var(--cor-destaque);
+    color: var(--cor-destaque);
+  }
+
+  /* Pills de abas (IA) */
+  .pill {
+    @apply inline-flex cursor-pointer items-center gap-1 transition-colors;
+    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: 14px;
+    background: #fff;
+    color: var(--cor-texto-sec);
+  }
+  .pill-on {
+    background: var(--cor-destaque);
+    color: #fff;
+  }
+
+  /* Tabelas de dados (Peso, Mounjaro, Notificações, Atividade) */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .data-table th,
+  .data-table td {
+    text-align: left;
+    font-size: 13px;
+    padding: 11px 4px;
+    border-bottom: 1px solid #f1ebe1;
+    color: var(--cor-primaria);
+  }
+  .data-table th {
+    color: var(--cor-texto-sec);
+    font-weight: 400;
+    font-size: 12px;
+  }
+  .data-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-accent text-white font-medium rounded-[10px] px-4 transition-colors hover:brightness-95 active:brightness-90 disabled:opacity-60 disabled:cursor-not-allowed;
+    min-height: 48px;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 bg-transparent text-primary font-medium rounded-[10px] px-4 border border-primary/25 transition-colors hover:bg-primary/5 disabled:opacity-60;
+    min-height: 48px;
+  }
+
+  .input-field {
+    @apply w-full rounded-[10px] bg-branco px-4 py-3 text-primary outline-none transition-shadow placeholder:text-textSecondary/60 focus:border-accent focus:ring-2 focus:ring-accent/30;
+    border: 1px solid #e0d9ce; /* borda exata do original */
+  }
+
+  .badge-pill {
+    @apply inline-flex items-center gap-1 rounded-[20px] px-3 py-1 text-xs font-semibold;
+  }
+  .badge-pill.green {
+    @apply bg-verde/15 text-verde;
+  }
+  .badge-pill.orange {
+    @apply bg-accent/15 text-accent;
+  }
+  .badge-pill.red {
+    @apply bg-vermelho/15 text-vermelho;
+  }
+
+  .progress-track {
+    @apply w-full overflow-hidden;
+    height: 6px;
+    background: #e8e3db; /* trilha exata do original */
+    border-radius: 999px;
+  }
+  .progress-fill {
+    @apply h-full rounded-full bg-accent;
+    transition: width 0.4s ease;
+  }
+
+  .chat-bubble {
+    @apply text-sm;
+    max-width: 70%;
+    border-radius: 24px;
+    padding: 16px;
+    line-height: 1.6;
+  }
+  .chat-bubble.user {
+    @apply bg-primary text-white ml-auto;
+  }
+  .chat-bubble.ai {
+    @apply bg-surface text-primary mr-auto;
+  }
+
+  /* ===== Cabeçalho de página (fiel ao original) ===== */
+  .page-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+  }
+  .page-header h1 {
+    font-size: 32px;
+    margin: 0;
+  }
+  .page-header p {
+    margin: 8px 0 0;
+    font-size: 14px;
+  }
+
+  /* ===== Sidebar (fiel à referência desktop: 212px) ===== */
+  .sidebar {
+    width: 212px;
+    min-height: 100vh;
+    background: var(--cor-primaria);
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+  }
+  .sidebar .logo-title {
+    font-size: 22px;
+    color: var(--cor-destaque);
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    padding: 4px 10px 0;
+  }
+  .sidebar .logo-subtitle {
+    font-size: 11px;
+    color: #6e7a93;
+    padding: 0 10px 16px;
+  }
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .sidebar-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 10px 11px;
+    border-radius: 9px;
+    color: #9aa6bf;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .sidebar-nav-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+  }
+  .sidebar-nav-item.active {
+    background: var(--cor-destaque);
+    color: #fff;
+  }
+  .sidebar-footer {
+    margin-top: auto;
+    border-top: 1px solid #2c3a57;
+    padding-top: 12px;
+  }
+  .sidebar-footer-card {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .sidebar-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    background: var(--cor-destaque);
+    color: var(--cor-branco);
+    font-size: 12px;
+    font-weight: 500;
+    flex: none;
+  }
+  .sidebar-footer-name {
+    margin: 0;
+    font-size: 12px;
+    color: #e5e9f1;
+  }
+  .sidebar-footer-meta {
+    margin: 2px 0 0;
+    font-size: 11px;
+    color: #7e89a1;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Virada do conteúdo entre exercícios */
+@keyframes flipContent {
+  from { opacity: 0; transform: rotateX(-90deg); }
+  to { opacity: 1; transform: rotateX(0deg); }
+}
+
+/* Piscar do cronômetro nos últimos segundos */
+@keyframes pulsar {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(1.06); }
+}
+
+@layer utilities {
+  /* Escalona a entrada dos filhos em incrementos de 60ms (até o 5º) */
+  .stagger > * {
+    animation: fadeInUp 0.3s ease-out both;
+  }
+  .stagger > *:nth-child(1) { animation-delay: 0ms; }
+  .stagger > *:nth-child(2) { animation-delay: 60ms; }
+  .stagger > *:nth-child(3) { animation-delay: 120ms; }
+  .stagger > *:nth-child(4) { animation-delay: 180ms; }
+  .stagger > *:nth-child(5) { animation-delay: 240ms; }
+}
