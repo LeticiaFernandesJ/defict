@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../stores/authStore';
 import { Button } from '../components/ui/Button';
+import { NumericInput } from '../components/ui/NumericInput';
 import { LABEL_NIVEL_ATIVIDADE, type NivelAtividade } from '../types';
 
 const NIVEIS: NivelAtividade[] = [
@@ -36,6 +37,7 @@ export function Onboarding() {
   const [erro, setErro] = useState<string | null>(null);
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<Form>({
@@ -110,13 +112,43 @@ export function Onboarding() {
 
           <div className="grid grid-cols-3 gap-3">
             <Campo label="Altura (cm)" erro={errors.altura?.message}>
-              <input type="number" step="0.1" className="input-field" {...register('altura', { valueAsNumber: true })} />
+              <Controller
+                control={control}
+                name="altura"
+                render={({ field }) => (
+                  <NumericInput
+                    casasDecimais={1}
+                    value={field.value ?? ''}
+                    onValueChange={(v) => field.onChange(v === '' ? undefined : v)}
+                  />
+                )}
+              />
             </Campo>
             <Campo label="Peso atual (kg)" erro={errors.peso_inicial?.message}>
-              <input type="number" step="0.1" className="input-field" {...register('peso_inicial', { valueAsNumber: true })} />
+              <Controller
+                control={control}
+                name="peso_inicial"
+                render={({ field }) => (
+                  <NumericInput
+                    casasDecimais={1}
+                    value={field.value ?? ''}
+                    onValueChange={(v) => field.onChange(v === '' ? undefined : v)}
+                  />
+                )}
+              />
             </Campo>
             <Campo label="Meta (kg)" erro={errors.peso_meta?.message}>
-              <input type="number" step="0.1" className="input-field" {...register('peso_meta', { valueAsNumber: true })} />
+              <Controller
+                control={control}
+                name="peso_meta"
+                render={({ field }) => (
+                  <NumericInput
+                    casasDecimais={1}
+                    value={field.value ?? ''}
+                    onValueChange={(v) => field.onChange(v === '' ? undefined : v)}
+                  />
+                )}
+              />
             </Campo>
           </div>
 

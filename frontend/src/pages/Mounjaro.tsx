@@ -12,6 +12,7 @@ import {
 import { hojeISO, addDiasISO, fmtDiaMes, fmtNum } from '../lib/dates';
 import { Card } from '../components/ui/Card';
 import { Modal } from '../components/ui/Modal';
+import { NumericInput } from '../components/ui/NumericInput';
 import { ConfirmDialog } from '../components/ui/ConfirmDialog';
 import { Button } from '../components/ui/Button';
 import { Carregando, EstadoErro, EstadoVazio } from '../components/ui/States';
@@ -178,13 +179,7 @@ function ModalAplicacao({
           </div>
           <div className="flex-1">
             <p className="lb-modal">Dose (mg)</p>
-            <input
-              type="number"
-              step="0.1"
-              className="input-field"
-              value={dose}
-              onChange={(e) => setDose(e.target.value === '' ? '' : Number(e.target.value))}
-            />
+            <NumericInput casasDecimais={1} value={dose} onValueChange={setDose} />
           </div>
         </div>
 

@@ -23,6 +23,7 @@ import { hojeISO, addDiasISO, fmtData, fmtNum } from '../lib/dates';
 import { LABEL_TIPO_REFEICAO, TIPOS_REFEICAO, type ItemRefeicao } from '../types';
 import { Card } from '../components/ui/Card';
 import { Modal } from '../components/ui/Modal';
+import { NumericInput } from '../components/ui/NumericInput';
 import { ConfirmDialog } from '../components/ui/ConfirmDialog';
 import { Button } from '../components/ui/Button';
 import { Carregando, EstadoErro, EstadoVazio } from '../components/ui/States';
@@ -274,7 +275,7 @@ function ItemModal({
 }) {
   const [refeicaoId, setRefeicaoId] = useState<number>(refeicaoIdFixa ?? refeicoes[0]?.id ?? 0);
   const [nome, setNome] = useState(item?.nome_alimento ?? '');
-  const [quantidade, setQuantidade] = useState(item?.quantidade ?? 100);
+  const [quantidade, setQuantidade] = useState<number | ''>(item?.quantidade ?? 100);
   const [unidade, setUnidade] = useState(item?.unidade ?? 'g');
   const [macros, setMacros] = useState({
     calorias: item?.calorias ?? 0,
@@ -288,7 +289,7 @@ function ItemModal({
   const [salvando, setSalvando] = useState(false);
 
   const calcularIA = async () => {
-    if (!nome.trim()) return;
+    if (!nome.trim() || !quantidade) return;
     setCalc(true);
     setErroIA(null);
     try {
@@ -302,7 +303,7 @@ function ItemModal({
   };
 
   const salvar = async () => {
-    if (!nome.trim() || !refeicaoId) return;
+    if (!nome.trim() || !refeicaoId || !quantidade) return;
     setSalvando(true);
     await onSave(refeicaoId, { nome_alimento: nome, quantidade, unidade, ...macros });
     setSalvando(false);
@@ -331,7 +332,7 @@ function ItemModal({
         <div className="flex gap-2.5">
           <div className="flex-1">
             <p className="lb-modal">Qtd.</p>
-            <input type="number" className="input-field" value={quantidade} onChange={(e) => setQuantidade(Number(e.target.value))} />
+            <NumericInput value={quantidade} onValueChange={setQuantidade} />
           </div>
           <div className="flex-1">
             <p className="lb-modal">Unidade</p>
@@ -383,11 +384,10 @@ function NutChip({
 }) {
   return (
     <label className={`fchip ${destaque ? 'fchip-on' : ''}`}>
-      <input
-        type="number"
-        step="0.1"
+      <NumericInput
+        casasDecimais={1}
         value={macros[k]}
-        onChange={(e) => setMacros((m) => ({ ...m, [k]: Number(e.target.value) }))}
+        onValueChange={(v) => setMacros((m) => ({ ...m, [k]: v === '' ? 0 : v }))}
         className="w-12 bg-transparent text-right outline-none"
       />
       {label}

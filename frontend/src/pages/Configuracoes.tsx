@@ -15,6 +15,7 @@ import { fmtNum } from '../lib/dates';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Toggle } from '../components/ui/Toggle';
+import { NumericInput } from '../components/ui/NumericInput';
 import { ConfirmDialog } from '../components/ui/ConfirmDialog';
 import { PageHeader } from '../components/ui/States';
 
@@ -143,13 +144,13 @@ function SecaoPerfil() {
           <input type="date" className="input-field" value={nascimento ?? ''} max={new Date().toISOString().slice(0, 10)} onChange={(e) => setNascimento(e.target.value)} aria-invalid={!!erros.nascimento} />
         </Field>
         <Field label="Altura (cm)" erro={erros.altura}>
-          <input type="number" step="0.1" className="input-field" value={altura} onChange={(e) => setAltura(e.target.value === '' ? '' : Number(e.target.value))} aria-invalid={!!erros.altura} />
+          <NumericInput casasDecimais={1} value={altura} onValueChange={setAltura} aria-invalid={!!erros.altura} />
         </Field>
         <Field label="Peso inicial (referência) kg" erro={erros.pesoInicial}>
-          <input type="number" step="0.1" className="input-field" value={pesoInicial} onChange={(e) => setPesoInicial(e.target.value === '' ? '' : Number(e.target.value))} aria-invalid={!!erros.pesoInicial} />
+          <NumericInput casasDecimais={1} value={pesoInicial} onValueChange={setPesoInicial} aria-invalid={!!erros.pesoInicial} />
         </Field>
         <Field label="Peso meta (kg)" erro={erros.pesoMeta}>
-          <input type="number" step="0.1" className="input-field" value={pesoMeta} onChange={(e) => setPesoMeta(e.target.value === '' ? '' : Number(e.target.value))} aria-invalid={!!erros.pesoMeta} />
+          <NumericInput casasDecimais={1} value={pesoMeta} onValueChange={setPesoMeta} aria-invalid={!!erros.pesoMeta} />
         </Field>
         <Field label="Nível de atividade" full>
           <select className="input-field" value={nivel} onChange={(e) => setNivel(e.target.value as NivelAtividade)}>
@@ -217,12 +218,12 @@ function SecaoMetas() {
         </div>
       ) : (
         <Field label="Meta calórica (kcal)" full>
-          <input type="number" className="input-field" value={metaCal} onChange={(e) => setMetaCal(e.target.value === '' ? '' : Number(e.target.value))} />
+          <NumericInput value={metaCal} onValueChange={setMetaCal} />
         </Field>
       )}
 
       <Field label="Meta de água (ml)" full>
-        <input type="number" className="input-field" value={metaAgua} onChange={(e) => setMetaAgua(e.target.value === '' ? '' : Number(e.target.value))} />
+        <NumericInput value={metaAgua} onValueChange={setMetaAgua} />
       </Field>
       <SaveBtn label="Salvar metas" status={salvar.status} erro={salvar.erro} onClick={onSalvar} />
     </SecaoCard>

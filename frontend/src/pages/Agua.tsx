@@ -6,6 +6,7 @@ import { hojeISO, fmtNum } from '../lib/dates';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Modal } from '../components/ui/Modal';
+import { NumericInput } from '../components/ui/NumericInput';
 import { Carregando, EstadoErro, PageHeader } from '../components/ui/States';
 
 export function Agua() {
@@ -13,7 +14,7 @@ export function Agua() {
   const navigate = useNavigate();
   const dataISO = hojeISO();
   const [modalCustom, setModalCustom] = useState(false);
-  const [custom, setCustom] = useState(300);
+  const [custom, setCustom] = useState<number | ''>(300);
 
   const { data: agua, isLoading, isError, refetch } = useAgua(profile?.id, dataISO);
   const historico = useAguaHistorico(profile?.id, 5);
@@ -119,15 +120,17 @@ export function Agua() {
 
       <Modal open={modalCustom} onClose={() => setModalCustom(false)} title="Quantidade personalizada">
         <div className="space-y-3">
-          <input type="number" className="input-field" value={custom} onChange={(e) => setCustom(Number(e.target.value))} />
+          <NumericInput value={custom} onValueChange={setCustom} />
           <Button
+            disabled={!custom || custom <= 0}
             onClick={() => {
+              if (!custom || custom <= 0) return;
               adicionar.mutate(custom);
               setModalCustom(false);
             }}
             className="w-full"
           >
-            Adicionar {fmtNum(custom)} ml
+            Adicionar {fmtNum(custom || 0)} ml
           </Button>
         </div>
       </Modal>

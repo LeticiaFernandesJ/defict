@@ -14,6 +14,7 @@ import { hojeISO, fmtData, fmtDiaMes, fmtNum } from '../lib/dates';
 import type { RegistroPeso } from '../types';
 import { Card } from '../components/ui/Card';
 import { Modal } from '../components/ui/Modal';
+import { NumericInput } from '../components/ui/NumericInput';
 import { ConfirmDialog } from '../components/ui/ConfirmDialog';
 import { Button } from '../components/ui/Button';
 import { Carregando, EstadoErro, EstadoVazio } from '../components/ui/States';
@@ -187,13 +188,7 @@ function ModalRegistrarPeso({
         <p className="lb-modal">Data</p>
         <input type="date" className="input-field" value={data} onChange={(e) => setData(e.target.value)} max={hojeISO()} />
         <p className="lb-modal !mt-3">Peso (kg)</p>
-        <input
-          type="number"
-          step="0.1"
-          className="input-field"
-          value={peso}
-          onChange={(e) => setPeso(e.target.value === '' ? '' : Number(e.target.value))}
-        />
+        <NumericInput casasDecimais={1} value={peso} onValueChange={setPeso} />
         <p className="lb-modal !mt-3">Observação</p>
         <input className="input-field" value={obs} onChange={(e) => setObs(e.target.value)} placeholder="opcional…" />
         <div className="flex gap-2.5 pt-4">

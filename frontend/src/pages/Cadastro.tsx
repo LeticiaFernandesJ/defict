@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useForm, type FieldPath } from 'react-hook-form';
+import { useForm, Controller, type FieldPath } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Eye, EyeOff, Check } from 'lucide-react';
 import { useAuthStore } from '../stores/authStore';
 import { Button } from '../components/ui/Button';
+import { NumericInput } from '../components/ui/NumericInput';
 import { calcularResumo } from '../lib/calc';
 import { LABEL_NIVEL_ATIVIDADE, type NivelAtividade } from '../types';
 
@@ -91,6 +92,7 @@ export function Cadastro() {
 
   const {
     register,
+    control,
     handleSubmit,
     trigger,
     getValues,
@@ -297,12 +299,17 @@ export function Cadastro() {
               />
             </Field>
             <Field label="Altura (cm)" erro={errors.altura?.message}>
-              <input
-                type="number"
-                step="0.1"
-                className="input-field"
-                aria-invalid={!!errors.altura}
-                {...register('altura', { valueAsNumber: true })}
+              <Controller
+                control={control}
+                name="altura"
+                render={({ field }) => (
+                  <NumericInput
+                    casasDecimais={1}
+                    value={field.value ?? ''}
+                    onValueChange={(v) => field.onChange(v === '' ? undefined : v)}
+                    aria-invalid={!!errors.altura}
+                  />
+                )}
               />
             </Field>
             <Field label="Nível de atividade" erro={errors.nivelAtividade?.message}>
@@ -327,30 +334,45 @@ export function Cadastro() {
           <div className="space-y-4 stagger">
             <div className="grid grid-cols-2 gap-3">
               <Field label="Peso atual (kg)" erro={errors.pesoInicial?.message}>
-                <input
-                  type="number"
-                  step="0.1"
-                  className="input-field"
-                  aria-invalid={!!errors.pesoInicial}
-                  {...register('pesoInicial', { valueAsNumber: true })}
+                <Controller
+                  control={control}
+                  name="pesoInicial"
+                  render={({ field }) => (
+                    <NumericInput
+                      casasDecimais={1}
+                      value={field.value ?? ''}
+                      onValueChange={(v) => field.onChange(v === '' ? undefined : v)}
+                      aria-invalid={!!errors.pesoInicial}
+                    />
+                  )}
                 />
               </Field>
               <Field label="Peso meta (kg)" erro={errors.pesoMeta?.message}>
-                <input
-                  type="number"
-                  step="0.1"
-                  className="input-field"
-                  aria-invalid={!!errors.pesoMeta}
-                  {...register('pesoMeta', { valueAsNumber: true })}
+                <Controller
+                  control={control}
+                  name="pesoMeta"
+                  render={({ field }) => (
+                    <NumericInput
+                      casasDecimais={1}
+                      value={field.value ?? ''}
+                      onValueChange={(v) => field.onChange(v === '' ? undefined : v)}
+                      aria-invalid={!!errors.pesoMeta}
+                    />
+                  )}
                 />
               </Field>
             </div>
             <Field label="Meta de água (ml)" erro={errors.metaAgua?.message}>
-              <input
-                type="number"
-                className="input-field"
-                aria-invalid={!!errors.metaAgua}
-                {...register('metaAgua', { valueAsNumber: true })}
+              <Controller
+                control={control}
+                name="metaAgua"
+                render={({ field }) => (
+                  <NumericInput
+                    value={field.value ?? ''}
+                    onValueChange={(v) => field.onChange(v === '' ? undefined : v)}
+                    aria-invalid={!!errors.metaAgua}
+                  />
+                )}
               />
             </Field>
             <label className="flex items-center gap-3 rounded-card bg-surface p-3">
@@ -362,14 +384,19 @@ export function Cadastro() {
               erro={errors.metaCaloricaManual?.message}
               dica="Sugestão calculada do seu perfil — ajuste se quiser."
             >
-              <input
-                type="number"
-                className="input-field"
-                aria-invalid={!!errors.metaCaloricaManual}
-                {...register('metaCaloricaManual', {
-                  valueAsNumber: true,
-                  onChange: () => (metaEditadaRef.current = true),
-                })}
+              <Controller
+                control={control}
+                name="metaCaloricaManual"
+                render={({ field }) => (
+                  <NumericInput
+                    value={field.value ?? ''}
+                    onValueChange={(v) => {
+                      metaEditadaRef.current = true;
+                      field.onChange(v === '' ? undefined : v);
+                    }}
+                    aria-invalid={!!errors.metaCaloricaManual}
+                  />
+                )}
               />
             </Field>
           </div>
