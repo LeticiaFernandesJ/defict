@@ -3,6 +3,7 @@ import { Sidebar } from './Sidebar';
 import { BottomNav } from './BottomNav';
 import { Header } from './Header';
 import { AssistenteIA } from '../ia/AssistenteIA';
+import { AtivarNotificacoesModal } from '../pwa/AtivarNotificacoesModal';
 
 /** Shell responsivo: sidebar (desktop) + header/bottom-nav (mobile). */
 export function AppShell() {
@@ -20,6 +21,7 @@ export function AppShell() {
       </div>
       <BottomNav />
       <AssistenteIA />
+      <AtivarNotificacoesModal />
     </div>
   );
 }

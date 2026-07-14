@@ -42,6 +42,14 @@ function horaAgora(): string {
 function jaDisparouHoje(ultimo: string | null): boolean {
   return !!ultimo && ultimo.slice(0, 10) === hojeISO();
 }
+function passaramHoras(ultimo: string | null, horas: number): boolean {
+  return !ultimo || Date.now() - new Date(ultimo).getTime() >= horas * 60 * 60 * 1000;
+}
+// Lembretes de "meta do dia ainda não cumprida" — repetem a cada 2h (em vez de
+// 1×/dia) enquanto a condição continuar valendo; a checagem de horário dentro
+// de cada `case` já impede o primeiro disparo antes do horário configurado.
+const TIPOS_RECORRENTES = new Set(['AguaMetaNaoAtingida', 'RefeicaoNaoRegistrada', 'AtividadeNaoRegistrada']);
+const INTERVALO_RECORRENCIA_HORAS = 2;
 function diasDesde(dataISO: string): number {
   return Math.floor((Date.now() - new Date(dataISO).getTime()) / 86400000);
 }
@@ -145,7 +153,12 @@ Deno.serve(async () => {
     const noHorario = (h: string) => agora >= h.slice(0, 5);
 
     for (const cfg of configs) {
-      if (jaDisparouHoje(cfg.ultimo_disparo)) continue;
+      const recorrente = TIPOS_RECORRENTES.has(cfg.tipo);
+      if (recorrente) {
+        if (!passaramHoras(cfg.ultimo_disparo, INTERVALO_RECORRENCIA_HORAS)) continue;
+      } else if (jaDisparouHoje(cfg.ultimo_disparo)) {
+        continue;
+      }
       let dispara = false;
       let titulo = 'Déficit';
       let corpo = '';
