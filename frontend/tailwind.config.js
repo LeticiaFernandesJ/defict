@@ -1,17 +1,32 @@
 /** @type {import('tailwindcss').Config} */
+
+// Cores que variam com o tema (claro/escuro) — lidas de variáveis CSS "triplet"
+// (ex.: --color-ink: 27 42 74;) para o Tailwind poder compor opacidade:
+// bg-ink/10 vira rgb(var(--color-ink) / 0.1). Ver frontend/src/index.css.
+function withOpacity(variavelCss) {
+  return ({ opacityValue }) =>
+    opacityValue === undefined
+      ? `rgb(var(${variavelCss}))`
+      : `rgb(var(${variavelCss}) / ${opacityValue})`;
+}
+
 export default {
   content: ['./index.html', './src/**/*.{ts,tsx}'],
+  darkMode: ['selector', '[data-theme="dark"]'],
   theme: {
     extend: {
       colors: {
+        // Marca — constantes nos dois temas.
         primary: '#1B2A4A',
-        surface: '#F5F0E8',
         accent: '#B5622A',
-        textSecondary: '#6B7A99',
-        branco: '#FFFFFF',
         verde: '#4CAF82',
         vermelho: '#E05252',
         agua: '#3E8CC6',
+        // Superfícies/texto — variam entre claro e escuro.
+        surface: withOpacity('--color-surface'),
+        branco: withOpacity('--color-branco'),
+        textSecondary: withOpacity('--color-text-secondary'),
+        ink: withOpacity('--color-ink'),
       },
       fontFamily: {
         sans: ['"DM Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],

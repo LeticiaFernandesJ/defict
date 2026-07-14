@@ -12,7 +12,7 @@ export function Toggle({ ativo, onChange, cor = 'var(--cor-verde)' }: ToggleProp
       aria-checked={ativo}
       onClick={() => onChange(!ativo)}
       className="relative inline-block h-[25px] w-[44px] flex-none rounded-[14px] align-middle transition-colors"
-      style={{ background: ativo ? cor : '#D8CFC0' }}
+      style={{ background: ativo ? cor : 'var(--color-border)' }}
     >
       <span
         className="absolute top-[3px] h-[19px] w-[19px] rounded-full bg-white transition-all"

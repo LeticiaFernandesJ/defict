@@ -55,9 +55,9 @@ export function Agua() {
                   style={{ transition: 'stroke-dashoffset 0.5s ease' }}
                 />
               </svg>
-              <div className="absolute font-display text-[30px] font-semibold text-primary">{pct}%</div>
+              <div className="absolute font-display text-[30px] font-semibold text-ink">{pct}%</div>
             </div>
-            <p className="mt-4 text-base font-medium text-primary">
+            <p className="mt-4 text-base font-medium text-ink">
               {fmtNum(ml)} / {fmtNum(meta)} ml
             </p>
             <p className="mut">
@@ -89,7 +89,7 @@ export function Agua() {
 
             <Card className="row">
               <span className="mut">Meta diária</span>
-              <button onClick={() => navigate('/configuracoes')} className="font-medium text-primary">
+              <button onClick={() => navigate('/configuracoes')} className="font-medium text-ink">
                 {fmtNum(meta)} ml
               </button>
             </Card>

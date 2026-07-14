@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
-import { AlertCircle, Bell, LogOut, ChevronRight, Check, Trash2, Info } from 'lucide-react';
+import { AlertCircle, Bell, LogOut, ChevronRight, Check, Trash2, Info, Moon } from 'lucide-react';
 import { useAuthStore } from '../stores/authStore';
+import { useThemeStore } from '../stores/themeStore';
 import { authApi } from '../lib/authClient';
 import { calcularResumo } from '../lib/calc';
 import {
@@ -48,7 +49,7 @@ export function Configuracoes() {
       return (
         <div className="space-y-4">
           <PageHeader titulo="Configurações" subtitulo="perfil, metas e preferências" />
-          <div className="h-40 animate-pulse rounded-card bg-primary/5" />
+          <div className="h-40 animate-pulse rounded-card bg-ink/5" />
         </div>
       );
     }
@@ -210,7 +211,7 @@ function SecaoMetas() {
               Dados insuficientes — informe altura, peso inicial, data de nascimento e nível de atividade acima.
             </p>
           ) : (
-            <p className="text-sm text-primary">
+            <p className="text-sm text-ink">
               Meta calculada: <b>{fmtNum(metaAuto ?? 0)} kcal/dia</b>{' '}
               <span className="mut">(atualiza com o perfil)</span>
             </p>
@@ -233,6 +234,7 @@ function SecaoMetas() {
 // ------------------------------------------------------------- Preferências
 function SecaoPreferencias() {
   const { profile, updateProfile } = useAuthStore();
+  const { tema, setTema } = useThemeStore();
   const permissao =
     typeof Notification !== 'undefined'
       ? Notification.permission === 'granted'
@@ -244,10 +246,23 @@ function SecaoPreferencias() {
 
   return (
     <div className="space-y-4">
+      <Card>
+        <div className="row">
+          <div className="flex items-center gap-2">
+            <Moon size={16} className="text-accent" />
+            <div>
+              <div className="text-[15px] font-medium text-ink">Modo noturno</div>
+              <div className="mut">Deixa as telas mais escuras — opcional.</div>
+            </div>
+          </div>
+          <Toggle ativo={tema === 'dark'} onChange={(v) => setTema(v ? 'dark' : 'light')} />
+        </div>
+      </Card>
+
       <Card className="!border-2 !border-[#E7C9B5]">
         <div className="row">
           <div>
-            <div className="text-[15px] font-medium text-primary">Uso Mounjaro</div>
+            <div className="text-[15px] font-medium text-ink">Uso Mounjaro</div>
             <div className="mut">Ativa a área de registro de aplicações.</div>
           </div>
           <Toggle
@@ -260,7 +275,7 @@ function SecaoPreferencias() {
 
       <Card>
         <Link to="/configuracoes/notificacoes" className="row">
-          <span className="flex items-center gap-2 text-sm text-primary">
+          <span className="flex items-center gap-2 text-sm text-ink">
             <Bell size={16} className="text-accent" /> Notificações
           </span>
           <span className="flex items-center gap-2">
@@ -323,7 +338,7 @@ function SecaoConta() {
     <SecaoCard titulo="Conta e segurança">
       <div className="rounded-card bg-surface p-3">
         <p className="mut">E-mail atual</p>
-        <p className="text-sm font-medium text-primary">{user?.email ?? '—'}</p>
+        <p className="text-sm font-medium text-ink">{user?.email ?? '—'}</p>
       </div>
 
       <Field label="Novo e-mail" full>
@@ -345,7 +360,7 @@ function SecaoConta() {
         <SaveBtn label="Alterar senha" status={salvarSenha.status} erro={salvarSenha.erro} onClick={onSenha} />
       </div>
 
-      <button onClick={sair} className="mt-4 flex w-full items-center justify-center gap-2 rounded-[10px] border border-primary/20 py-3 text-sm font-medium text-primary hover:bg-primary/5">
+      <button onClick={sair} className="mt-4 flex w-full items-center justify-center gap-2 rounded-[10px] border border-ink/20 py-3 text-sm font-medium text-ink hover:bg-ink/5">
         <LogOut size={16} /> Sair da conta
       </button>
     </SecaoCard>
@@ -399,7 +414,7 @@ function SecaoSobre() {
   return (
     <Card>
       <p className="mb-1 text-xs font-medium uppercase tracking-wide text-textSecondary">Sobre</p>
-      <p className="text-sm text-primary">Déficit · versão {APP_VERSION}</p>
+      <p className="text-sm text-ink">Déficit · versão {APP_VERSION}</p>
       <Link to="/" className="mt-1 inline-flex items-center gap-1 text-sm font-medium text-accent">
         <Info size={14} /> Sobre o app e FAQ
       </Link>

@@ -112,7 +112,7 @@ export function Refeicoes() {
           <div className="flex flex-col gap-3.5">
             <Card>
               <p className="mut">Resumo do dia</p>
-              <div className="my-1 font-display text-[26px] font-semibold text-primary">
+              <div className="my-1 font-display text-[26px] font-semibold text-ink">
                 {fmtNum(totalDia.calorias)}
                 <span className="text-[13px] font-normal text-textSecondary"> / {fmtNum(meta)}</span>
               </div>
@@ -217,7 +217,7 @@ function RefeicaoCard({
   return (
     <Card>
       <div className="row">
-        <span className="text-[15px] font-medium text-primary">
+        <span className="text-[15px] font-medium text-ink">
           {LABEL_TIPO_REFEICAO[refeicao.tipo_refeicao]}
         </span>
         <div className="flex items-center gap-2">

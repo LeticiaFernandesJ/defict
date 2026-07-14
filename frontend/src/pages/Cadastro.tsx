@@ -259,7 +259,7 @@ export function Cadastro() {
                   aria-invalid={!!errors.aceiteLgpd}
                   {...register('aceiteLgpd')}
                 />
-                <span className="text-sm text-primary/90">
+                <span className="text-sm text-ink/90">
                   Li e concordo com a{' '}
                   <Link to="/privacidade" target="_blank" className="font-semibold text-accent hover:underline">
                     Política de Privacidade
@@ -459,7 +459,7 @@ function StepIndicator({ passo }: { passo: number }) {
         <div key={nome} className="flex flex-1 flex-col gap-1">
           <div
             className={`h-1.5 rounded-full transition-colors ${
-              i <= passo ? 'bg-accent' : 'bg-primary/10'
+              i <= passo ? 'bg-accent' : 'bg-ink/10'
             }`}
           />
           <span
@@ -510,7 +510,7 @@ function ForcaSenha({ senha }: { senha: string }) {
         {[0, 1, 2, 3].map((i) => (
           <div
             key={i}
-            className={`h-1 flex-1 rounded-full ${i < score ? cores[score] : 'bg-primary/10'}`}
+            className={`h-1 flex-1 rounded-full ${i < score ? cores[score] : 'bg-ink/10'}`}
           />
         ))}
       </div>

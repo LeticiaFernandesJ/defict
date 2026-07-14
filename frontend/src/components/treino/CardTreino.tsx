@@ -146,8 +146,8 @@ function FrenteDia({ dia, ehHoje, n }: { dia: DiaTreino; ehHoje: boolean; n: num
       </div>
       <div className="flex flex-1 flex-col items-center justify-center text-center">
         <Dumbbell className="mb-3 text-accent" size={30} />
-        <div className="font-display text-2xl font-semibold text-primary">{dia.diaSemana}</div>
-        <div className="mt-1 text-[15px] font-medium text-primary">{dia.titulo}</div>
+        <div className="font-display text-2xl font-semibold text-ink">{dia.diaSemana}</div>
+        <div className="mt-1 text-[15px] font-medium text-ink">{dia.titulo}</div>
         {dia.foco && <div className="mut mt-1">{dia.foco}</div>}
       </div>
       <p className="mut text-center !text-[11px]">Toque para começar</p>
@@ -158,11 +158,11 @@ function FrenteDia({ dia, ehHoje, n }: { dia: DiaTreino; ehHoje: boolean; n: num
 function FrenteBloqueada({ dia }: { dia: DiaTreino }) {
   return (
     <div className="flex flex-1 flex-col items-center justify-center text-center opacity-70">
-      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/5">
+      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-ink/5">
         <Lock className="text-textSecondary" size={24} />
       </div>
-      <div className="mt-3 font-display text-xl font-semibold text-primary">{dia.diaSemana}</div>
-      <div className="mt-1 text-[15px] font-medium text-primary">{dia.titulo}</div>
+      <div className="mt-3 font-display text-xl font-semibold text-ink">{dia.diaSemana}</div>
+      <div className="mt-1 text-[15px] font-medium text-ink">{dia.titulo}</div>
       <div className="mut mt-2 max-w-[16rem]">Disponível na {dia.diaSemana.toLowerCase()}</div>
     </div>
   );
@@ -174,7 +174,7 @@ function FrenteTravada({ dia }: { dia: DiaTreino }) {
       <div className="flex h-14 w-14 items-center justify-center rounded-full bg-verde/20">
         <Check className="text-verde" size={28} />
       </div>
-      <div className="mt-3 font-display text-xl font-semibold text-primary">{dia.diaSemana}</div>
+      <div className="mt-3 font-display text-xl font-semibold text-ink">{dia.diaSemana}</div>
       <div className="mut mt-1 max-w-[16rem]">Concluído — volta na próxima semana</div>
     </div>
   );
@@ -202,13 +202,13 @@ function VersoExercicio({
     >
       <div className="row">
         <span className="mut">Exercício {idx + 1} de {total}</span>
-        <button onClick={onSair} className="mut hover:text-primary" aria-label="Sair">
+        <button onClick={onSair} className="mut hover:text-ink" aria-label="Sair">
           <X size={16} />
         </button>
       </div>
 
       <div className="flex flex-1 flex-col items-center justify-center text-center">
-        <div className="font-display text-xl font-semibold text-primary">{ex.nome}</div>
+        <div className="font-display text-xl font-semibold text-ink">{ex.nome}</div>
         <div className="mt-2 text-[15px] text-textSecondary">
           {ex.series}× {ex.repeticoes}
         </div>
@@ -226,7 +226,7 @@ function VersoExercicio({
         {Array.from({ length: total }).map((_, i) => (
           <span
             key={i}
-            className={`h-1.5 rounded-full transition-all ${i === idx ? 'w-5 bg-accent' : i < idx ? 'w-1.5 bg-verde' : 'w-1.5 bg-primary/15'}`}
+            className={`h-1.5 rounded-full transition-all ${i === idx ? 'w-5 bg-accent' : i < idx ? 'w-1.5 bg-verde' : 'w-1.5 bg-ink/15'}`}
           />
         ))}
       </div>
@@ -319,7 +319,7 @@ function VersoConcluido({ msg, onFechar }: { msg: string; onFechar: () => void }
       <div className="flex h-16 w-16 items-center justify-center rounded-full bg-verde/15">
         <Check className="text-verde" size={34} />
       </div>
-      <p className="mt-4 max-w-[18rem] font-display text-lg font-semibold text-primary">{msg}</p>
+      <p className="mt-4 max-w-[18rem] font-display text-lg font-semibold text-ink">{msg}</p>
       <button onClick={onFechar} className="btn-outline mt-5 px-6 !min-h-[40px] text-sm">
         Fechar
       </button>

@@ -149,7 +149,7 @@ export function Peso() {
 function Metric({ v, l }: { v: number | null; l: string }) {
   return (
     <div className="card !py-3.5 text-center">
-      <div className="text-xl font-medium text-primary">
+      <div className="text-xl font-medium text-ink">
         {v != null ? `${fmtNum(v, 1)} kg` : '—'}
       </div>
       <div className="mut">{l}</div>

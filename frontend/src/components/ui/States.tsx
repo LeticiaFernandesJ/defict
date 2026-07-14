@@ -13,7 +13,7 @@ export function Carregando({ texto = 'Carregando…' }: { texto?: string }) {
 }
 
 export function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-pulse rounded-card bg-primary/5 ${className}`} />;
+  return <div className={`animate-pulse rounded-card bg-ink/5 ${className}`} />;
 }
 
 export function EstadoVazio({

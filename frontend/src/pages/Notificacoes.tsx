@@ -124,7 +124,7 @@ function PushCard({ userId }: { userId?: string }) {
         <div className="flex items-center gap-2">
           {ativado ? <BellRing size={18} className="text-verde" /> : <Bell size={18} className="text-accent" />}
           <div>
-            <p className="text-sm font-medium text-primary">Notificações push</p>
+            <p className="text-sm font-medium text-ink">Notificações push</p>
             <p className="mut">
               {ativado ? 'Ativadas neste dispositivo.' : 'Receba os lembretes mesmo com o app fechado.'}
             </p>

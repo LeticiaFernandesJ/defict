@@ -7,7 +7,7 @@ import { Button } from '../ui/Button';
 
 type Aba = 'chat' | 'analise';
 
-/** Botão flutuante (canto inferior direito, desktop e mobile) que abre o popup da IA. */
+/** Botão flutuante (canto inferior direito, desktop e mobile) que abre o popup da Andy. */
 export function AssistenteIA() {
   const [aberto, setAberto] = useState(false);
 
@@ -23,14 +23,14 @@ export function AssistenteIA() {
 
       {aberto && (
         <div
-          className="fixed z-50 flex w-[calc(100vw-2rem)] max-w-[380px] flex-col overflow-hidden rounded-card bg-branco shadow-card animate-fadeInUp"
+          className="fixed z-50 flex w-[calc(100vw-2rem)] max-w-[380px] flex-col overflow-hidden rounded-card bg-primary shadow-card animate-fadeInUp"
           style={{
             right: '1rem',
             bottom: 'calc(var(--bottom-nav-height) + 5.5rem)',
             maxHeight: '70vh',
           }}
           role="dialog"
-          aria-label="Assistente IA"
+          aria-label="Andy, assistente de IA"
         >
           <PopupIA onClose={() => setAberto(false)} />
         </div>
@@ -39,7 +39,7 @@ export function AssistenteIA() {
       <button
         type="button"
         onClick={() => setAberto((a) => !a)}
-        aria-label={aberto ? 'Fechar assistente IA' : 'Abrir assistente IA'}
+        aria-label={aberto ? 'Fechar a Andy' : 'Abrir a Andy'}
         className="fixed z-50 flex h-14 w-14 items-center justify-center rounded-full bg-accent text-white shadow-card transition-transform hover:brightness-95 active:scale-95"
         style={{ right: '1rem', bottom: 'calc(var(--bottom-nav-height) + 1.25rem)' }}
       >
@@ -54,11 +54,11 @@ function PopupIA({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="flex h-full min-h-0 flex-col">
-      <div className="flex items-center justify-between border-b border-[#F1EBE1] px-4 py-3">
-        <span className="flex items-center gap-2 font-display text-base font-bold text-primary">
-          <Sparkles size={16} className="text-accent" /> IA · Gemini
+      <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
+        <span className="flex items-center gap-2 font-display text-base font-bold text-white">
+          <Sparkles size={16} className="text-accent" /> Andy
         </span>
-        <button onClick={onClose} className="text-textSecondary hover:text-primary" aria-label="Fechar">
+        <button onClick={onClose} className="text-white/60 hover:text-white" aria-label="Fechar">
           <X size={18} />
         </button>
       </div>
@@ -92,7 +92,7 @@ interface Msg {
 
 function Chat() {
   const [msgs, setMsgs] = useState<Msg[]>([
-    { autor: 'ai', texto: 'Olá! Posso ajudar com dúvidas sobre alimentação e sua meta. O que você quer saber?' },
+    { autor: 'ai', texto: 'Olá! Eu sou a Andy. Posso ajudar com dúvidas sobre alimentação e sua meta. O que você quer saber?' },
   ]);
   const [texto, setTexto] = useState('');
   const [carregando, setCarregando] = useState(false);
@@ -123,7 +123,7 @@ function Chat() {
           m.autor === 'ai' ? (
             <div
               key={i}
-              className="max-w-[85%] bg-surface px-3.5 py-2.5 text-sm text-primary"
+              className="max-w-[85%] bg-white/10 px-3.5 py-2.5 text-sm text-white"
               style={{ borderRadius: '14px 14px 14px 4px' }}
             >
               {m.texto}
@@ -131,7 +131,7 @@ function Chat() {
           ) : (
             <div
               key={i}
-              className="ml-auto max-w-[85%] bg-primary px-3.5 py-2.5 text-sm text-[#EAF0FA]"
+              className="ml-auto max-w-[85%] bg-accent px-3.5 py-2.5 text-sm text-white"
               style={{ borderRadius: '14px 14px 4px 14px' }}
             >
               {m.texto}
@@ -140,7 +140,7 @@ function Chat() {
         )}
         {carregando && (
           <div
-            className="flex max-w-[85%] items-center gap-2 bg-surface px-3.5 py-2.5 text-sm text-textSecondary"
+            className="flex max-w-[85%] items-center gap-2 bg-white/10 px-3.5 py-2.5 text-sm text-white/70"
             style={{ borderRadius: '14px 14px 14px 4px' }}
           >
             <Loader2 size={14} className="animate-spin" /> digitando…
@@ -148,9 +148,9 @@ function Chat() {
         )}
       </div>
 
-      <div className="mt-4 flex items-center gap-2.5 rounded-[24px] bg-surface py-1.5 pl-[18px] pr-2">
+      <div className="mt-4 flex items-center gap-2.5 rounded-[24px] bg-white/10 py-1.5 pl-[18px] pr-2">
         <input
-          className="flex-1 bg-transparent py-2 text-sm outline-none placeholder:text-textSecondary"
+          className="flex-1 bg-transparent py-2 text-sm text-white outline-none placeholder:text-white/50"
           placeholder="Escreva uma mensagem…"
           value={texto}
           onChange={(e) => setTexto(e.target.value)}
@@ -199,14 +199,14 @@ function AnaliseDia() {
 
   return (
     <div className="space-y-3">
-      <p className="mut">Gere uma análise curta e motivadora da sua alimentação de hoje.</p>
+      <p className="text-sm text-white/70">Gere uma análise curta e motivadora da sua alimentação de hoje.</p>
       <Button onClick={analisar} loading={carregando} className="w-full">
         <Sparkles size={16} /> Analisar meu dia
       </Button>
       {erro && <p className="text-sm text-vermelho">{erro}</p>}
       {analise && (
         <div
-          className="max-w-full whitespace-pre-line bg-surface px-3.5 py-2.5 text-sm text-primary animate-fadeInUp"
+          className="max-w-full whitespace-pre-line bg-white/10 px-3.5 py-2.5 text-sm text-white animate-fadeInUp"
           style={{ borderRadius: '14px 14px 14px 4px' }}
         >
           {analise}

@@ -48,7 +48,7 @@ export function Mounjaro() {
           <div className="row">
             <div>
               <p className="mut">Última aplicação</p>
-              <div className="font-display text-[24px] font-semibold text-primary">
+              <div className="font-display text-[24px] font-semibold text-ink">
                 {fmtNum(ultima.dose_mg, 1)} mg
               </div>
               <p className="mut">

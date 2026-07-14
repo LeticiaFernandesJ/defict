@@ -120,9 +120,9 @@ const FAQ = [
 
 export function Landing() {
   return (
-    <div className="min-h-screen bg-surface text-primary">
+    <div className="min-h-screen bg-surface text-ink">
       {/* Header */}
-      <header className="sticky top-0 z-30 border-b border-primary/5 bg-surface/90 backdrop-blur">
+      <header className="sticky top-0 z-30 border-b border-ink/5 bg-surface/90 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
           <span className="flex items-center gap-2 font-display text-2xl font-bold text-accent">
             <HeartPulse size={22} className="text-accent" /> Déficit
@@ -331,7 +331,7 @@ export function Landing() {
       </section>
 
       {/* Rodapé */}
-      <footer className="border-t border-primary/5 py-8">
+      <footer className="border-t border-ink/5 py-8">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 text-center text-sm text-textSecondary">
           <span className="flex items-center gap-2 font-display text-xl font-bold text-accent">
             <HeartPulse size={18} /> Déficit

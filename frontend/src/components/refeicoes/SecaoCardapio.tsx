@@ -109,7 +109,7 @@ export function SecaoCardapio({ dataISO }: { dataISO: string }) {
       <Card className="space-y-1">
         <div className="flex items-center gap-2">
           <Sparkles size={18} className="text-accent" />
-          <span className="font-medium text-primary">Cardápio com IA</span>
+          <span className="font-medium text-ink">Cardápio com IA</span>
         </div>
         <p className="mut">A IA monta uma semana dentro da sua meta ({meta} kcal). Marque o que você comer.</p>
 
@@ -142,7 +142,7 @@ export function SecaoCardapio({ dataISO }: { dataISO: string }) {
         <>
           <div className="flex items-center justify-between gap-2">
             <p className="mut !text-[11px]">
-              Ao marcar "Comi isso", a refeição é salva no dia <b className="text-primary">{fmtData(dataISO)}</b> com os nutrientes.
+              Ao marcar "Comi isso", a refeição é salva no dia <b className="text-ink">{fmtData(dataISO)}</b> com os nutrientes.
             </p>
             <button
               onClick={() => (cardapioId ? setConfirmarDelete(cardapioId) : (setDias(null), setMarcados(new Set())))}
@@ -154,7 +154,7 @@ export function SecaoCardapio({ dataISO }: { dataISO: string }) {
           <div className="space-y-3 stagger">
             {dias.map((dia, i) => (
               <Card key={i}>
-                <p className="mb-2 font-medium text-primary">{dia.nomeDia ?? `Dia ${i + 1}`}</p>
+                <p className="mb-2 font-medium text-ink">{dia.nomeDia ?? `Dia ${i + 1}`}</p>
                 <div className="space-y-2">
                   {(dia.refeicoes ?? []).map((ref, j) => {
                     const key = `${i}-${j}`;
@@ -162,7 +162,7 @@ export function SecaoCardapio({ dataISO }: { dataISO: string }) {
                     return (
                       <div key={j} className="rounded-card bg-surface p-2.5">
                         <div className="row">
-                          <p className="text-sm font-medium text-primary">{LABEL_TIPO_REFEICAO[mapTipo(ref.tipo, j)]}</p>
+                          <p className="text-sm font-medium text-ink">{LABEL_TIPO_REFEICAO[mapTipo(ref.tipo, j)]}</p>
                           <button
                             onClick={() => marcarRealizado(key, ref)}
                             disabled={feito || marcando === key}
@@ -203,7 +203,7 @@ export function SecaoCardapio({ dataISO }: { dataISO: string }) {
             {(historico.data ?? []).map((c) => (
               <li key={c.id} className="row py-2">
                 <div className="min-w-0">
-                  <p className="text-sm text-primary">{fmtData(c.criado_em)}</p>
+                  <p className="text-sm text-ink">{fmtData(c.criado_em)}</p>
                   <p className="mut truncate">
                     {c.preferencias || 'sem preferências'} · {c.meta_calorica} kcal
                   </p>

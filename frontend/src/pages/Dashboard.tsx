@@ -73,7 +73,7 @@ export function Dashboard() {
         <div className="grid grid-cols-3 divide-x divide-[#F1EBE1]">
           <div className="pr-3">
             <p className="mut">Peso atual</p>
-            <div className="font-display text-[28px] font-semibold leading-tight text-primary">
+            <div className="font-display text-[28px] font-semibold leading-tight text-ink">
               {pesoAtual != null ? fmtNum(pesoAtual, 1) : '—'}
               <span className="text-sm font-normal"> kg</span>
             </div>
@@ -86,7 +86,7 @@ export function Dashboard() {
 
           <div className="px-3">
             <p className="mut">Peso meta</p>
-            <div className="font-display text-[28px] font-semibold leading-tight text-primary">
+            <div className="font-display text-[28px] font-semibold leading-tight text-ink">
               {pesoMeta != null ? fmtNum(pesoMeta, 1) : '—'}
               <span className="text-sm font-normal"> kg</span>
             </div>
@@ -94,7 +94,7 @@ export function Dashboard() {
 
           <div className="pl-3">
             <p className="mut">IMC</p>
-            <div className="font-display text-[28px] font-semibold leading-tight text-primary">
+            <div className="font-display text-[28px] font-semibold leading-tight text-ink">
               {calc ? fmtNum(calc.imc, 1) : '—'}
             </div>
             {calc && <p className="mt-0.5 text-xs text-textSecondary">{classificarImc(calc.imc)}</p>}
@@ -112,7 +112,7 @@ export function Dashboard() {
             </span>
           </div>
           <div className="my-1 flex items-baseline gap-1.5">
-            <span className="font-display text-[40px] font-semibold leading-none text-primary">
+            <span className="font-display text-[40px] font-semibold leading-none text-ink">
               {fmtNum(consumidas)}
             </span>
             <span className="mut">/ {fmtNum(metaCal)} kcal</span>
@@ -127,7 +127,7 @@ export function Dashboard() {
             {ultrapassou ? (
               <>Você está <b className="text-vermelho">{fmtNum(Math.abs(restantes))} kcal</b> acima da meta</>
             ) : (
-              <>Restam <b className="text-primary">{fmtNum(restantes)} kcal</b> para a meta</>
+              <>Restam <b className="text-ink">{fmtNum(restantes)} kcal</b> para a meta</>
             )}
           </p>
         </Card>
@@ -176,7 +176,7 @@ export function Dashboard() {
       {/* Atividade física — barra principal (progresso de nível) + barra da semana */}
       <Card>
         <div className="row mb-1">
-          <button onClick={() => navigate('/atividade')} className="flex items-center gap-1.5 text-sm font-medium text-primary">
+          <button onClick={() => navigate('/atividade')} className="flex items-center gap-1.5 text-sm font-medium text-ink">
             <Activity size={16} className="text-accent" /> Atividade física
             <ChevronRight size={15} className="text-textSecondary" />
           </button>
@@ -198,7 +198,7 @@ export function Dashboard() {
             </div>
             <p className="mut mt-1.5">
               {prog?.semanasConcluidas ?? 0} de {prog?.semanasRequeridas ?? 5} semanas para{' '}
-              <b className="text-primary">
+              <b className="text-ink">
                 {prog?.proximo ? LABEL_NIVEL_ATIVIDADE[prog.proximo] : 'Leve'}
               </b>
             </p>
@@ -226,7 +226,7 @@ function Indicador({ titulo, valor, sub }: { titulo: string; valor: string; sub:
   return (
     <div className="rounded-card bg-surface py-3 text-center">
       <p className="text-[11px] uppercase tracking-wide text-textSecondary">{titulo}</p>
-      <p className="mt-0.5 font-display text-xl font-semibold text-primary">{valor}</p>
+      <p className="mt-0.5 font-display text-xl font-semibold text-ink">{valor}</p>
       <p className="text-[11px] text-textSecondary">{sub}</p>
     </div>
   );

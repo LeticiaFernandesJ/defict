@@ -51,7 +51,7 @@ export function Atividade() {
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1.4fr_1fr]">
             <Card>
               <p className="mut">Nível atual</p>
-              <div className="font-display text-[26px] font-semibold text-primary">
+              <div className="font-display text-[26px] font-semibold text-ink">
                 {LABEL_NIVEL_ATIVIDADE[prog.nivel]}
               </div>
               {prog.proximo ? (
@@ -61,7 +61,7 @@ export function Atividade() {
                   </div>
                   <p className="mut mt-2">
                     {prog.semanasConcluidas} de {prog.semanasRequeridas} semanas para{' '}
-                    <b className="text-primary">{LABEL_NIVEL_ATIVIDADE[prog.proximo]}</b>
+                    <b className="text-ink">{LABEL_NIVEL_ATIVIDADE[prog.proximo]}</b>
                   </p>
                   <p className="mut mt-1 !text-[11px]">
                     Marque ao menos {prog.vezesSemana}× por semana durante {prog.semanasRequeridas} semanas.
@@ -74,10 +74,10 @@ export function Atividade() {
 
             <Card className="flex flex-col justify-center">
               <div className="row">
-                <span className="flex items-center gap-1.5 text-sm text-primary">
+                <span className="flex items-center gap-1.5 text-sm text-ink">
                   <Flame size={16} className="text-accent" /> Sequência
                 </span>
-                <span className="text-xl font-semibold text-primary">{prog.semanasConcluidas} sem.</span>
+                <span className="text-xl font-semibold text-ink">{prog.semanasConcluidas} sem.</span>
               </div>
             </Card>
           </div>
@@ -85,7 +85,7 @@ export function Atividade() {
           {/* Esta semana + marcar (canônico) */}
           <Card>
             <div className="row mb-1">
-              <span className="flex items-center gap-1.5 text-sm font-medium text-primary">
+              <span className="flex items-center gap-1.5 text-sm font-medium text-ink">
                 <Activity size={16} className="text-accent" /> Esta semana
               </span>
               <span className="mut">
@@ -193,7 +193,7 @@ function FormGerarTreino({
     <Card className="space-y-3">
       <div className="flex items-center gap-2">
         <Sparkles size={18} className="text-accent" />
-        <span className="font-medium text-primary">Gerar treino com IA</span>
+        <span className="font-medium text-ink">Gerar treino com IA</span>
       </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <label className="block text-sm font-medium">
@@ -266,7 +266,7 @@ function PlanoView({ plano, onNovo }: { plano: PlanoTreino; onNovo: () => void }
         <div className="row">
           <div className="flex items-center gap-2">
             <Dumbbell size={18} className="text-accent" />
-            <span className="font-medium text-primary">Seu treino ({plano.objetivo})</span>
+            <span className="font-medium text-ink">Seu treino ({plano.objetivo})</span>
           </div>
           <button onClick={onNovo} className="flex items-center gap-1 text-xs font-medium text-accent">
             <RefreshCw size={13} /> Novo plano

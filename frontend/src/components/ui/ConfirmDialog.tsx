@@ -26,7 +26,7 @@ export function ConfirmDialog({
         <div className="mx-auto mb-4 flex h-[52px] w-[52px] items-center justify-center rounded-full bg-vermelho/10">
           <Trash2 className="text-vermelho" size={24} />
         </div>
-        <h2 className="mb-1.5 font-display text-[19px] font-semibold text-primary">{titulo}</h2>
+        <h2 className="mb-1.5 font-display text-[19px] font-semibold text-ink">{titulo}</h2>
         <p className="mb-5 text-sm text-textSecondary">{descricao}</p>
         <div className="flex gap-3">
           <Button variant="outline" onClick={onClose} className="flex-1">

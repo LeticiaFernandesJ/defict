@@ -5,17 +5,41 @@
 @tailwind utilities;
 
 :root {
+  /* Marca — não variam entre temas (o azul marinho/laranja/verde/vermelho/água
+     funcionam tanto sobre superfícies claras quanto escuras). */
   --cor-primaria: #1b2a4a;
-  --cor-superficie: #f5f0e8;
   --cor-destaque: #b5622a;
-  --cor-branco: #ffffff;
-  --cor-texto-sec: #6b7a99;
   --cor-verde: #4caf82;
   --cor-vermelho: #e05252;
+  --cor-agua: #3e8cc6;
+
+  /* Superfícies e texto — variam com o tema. Em "triplet" (sem vírgula) para
+     o Tailwind poder compor opacidade: rgb(var(--x) / 0.5). */
+  --color-surface: 245 240 232; /* fundo da página */
+  --color-branco: 255 255 255; /* cards/elevação */
+  --color-ink: 27 42 74; /* texto padrão */
+  --color-text-secondary: 107 122 153; /* texto secundário/mudo */
+
+  /* Bordas e trilhas de progresso — valores completos (não precisam de opacidade
+     via Tailwind, só variam de cor entre os temas). */
+  --color-border: #e7decf;
+  --color-track: #ece4d8;
 
   --borda-radius: 16px;
   --sombra-card: 0 2px 12px rgba(0, 0, 0, 0.07);
   --bottom-nav-height: 72px;
+}
+
+/* Modo noturno — opcional, ativado via [data-theme="dark"] no <html>
+   (ver frontend/src/lib/theme.ts). Mantém a marca (navy/laranja) e escurece
+   só as superfícies (fundo da página e dos cards) e o texto. */
+:root[data-theme='dark'] {
+  --color-surface: 14 20 36;
+  --color-branco: 25 34 56;
+  --color-ink: 229 234 244;
+  --color-text-secondary: 150 162 190;
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-track: #26314e;
 }
 
 @media (min-width: 1024px) {
@@ -30,7 +54,7 @@
   }
 
   body {
-    @apply bg-surface text-primary font-sans antialiased;
+    @apply bg-surface text-ink font-sans antialiased transition-colors duration-200;
     margin: 0;
   }
 
@@ -65,7 +89,7 @@
 
   /* Cabeçalho de página no conteúdo (fiel à referência) */
   .ph1 {
-    @apply font-display font-semibold text-primary;
+    @apply font-display font-semibold text-ink;
     font-size: 26px;
     line-height: 1.15;
   }
@@ -82,13 +106,13 @@
     align-items: center;
   }
   .mut {
-    color: var(--cor-texto-sec);
+    @apply text-textSecondary;
     font-size: 13px;
   }
   .bar {
     height: 8px;
     border-radius: 6px;
-    background: #ede6da;
+    background: var(--color-track);
     overflow: hidden;
     margin-top: 8px;
   }
@@ -116,14 +140,22 @@
     background: #e3eef6;
     color: var(--cor-agua);
   }
+  :root[data-theme='dark'] .badge-green {
+    background: rgba(76, 175, 130, 0.18);
+    color: #8fe0ba;
+  }
+  :root[data-theme='dark'] .badge-blue {
+    background: rgba(62, 140, 198, 0.2);
+    color: #7ec3ee;
+  }
 
   /* Input compacto de valor (Configurações) — parece um valor, mas é editável */
   .edit-inp {
+    @apply text-ink;
     text-align: right;
     font-size: 14px;
-    color: var(--cor-primaria);
-    background: #fff;
-    border: 1px solid #e7decf;
+    background: rgb(var(--color-branco));
+    border: 1px solid var(--color-border);
     border-radius: 8px;
     padding: 6px 10px;
     max-width: 170px;
@@ -135,35 +167,36 @@
 
   /* Rótulo de campo dentro de modais */
   .lb-modal {
+    @apply text-textSecondary;
     font-size: 12px;
-    color: var(--cor-texto-sec);
     margin: 0 0 4px;
   }
 
   /* Chips de seleção/valor (local de aplicação, tolerância, nutrientes) */
   .fchip {
-    @apply inline-flex items-center gap-1 cursor-pointer transition-colors;
+    @apply inline-flex items-center gap-1 cursor-pointer transition-colors text-textSecondary;
     font-size: 13px;
     padding: 8px 13px;
     border-radius: 10px;
-    border: 1px solid #e7decf;
-    background: #fff;
-    color: var(--cor-texto-sec);
+    border: 1px solid var(--color-border);
+    background: rgb(var(--color-branco));
   }
   .fchip-on {
     background: #f3e4d8;
     border-color: var(--cor-destaque);
     color: var(--cor-destaque);
   }
+  :root[data-theme='dark'] .fchip-on {
+    background: rgba(181, 98, 42, 0.25);
+  }
 
   /* Pills de abas (IA) */
   .pill {
-    @apply inline-flex cursor-pointer items-center gap-1 transition-colors;
+    @apply inline-flex cursor-pointer items-center gap-1 transition-colors text-textSecondary;
     font-size: 13px;
     padding: 6px 14px;
     border-radius: 14px;
-    background: #fff;
-    color: var(--cor-texto-sec);
+    background: rgb(var(--color-branco));
   }
   .pill-on {
     background: var(--cor-destaque);
@@ -177,14 +210,14 @@
   }
   .data-table th,
   .data-table td {
+    @apply text-ink;
     text-align: left;
     font-size: 13px;
     padding: 11px 4px;
-    border-bottom: 1px solid #f1ebe1;
-    color: var(--cor-primaria);
+    border-bottom: 1px solid var(--color-border);
   }
   .data-table th {
-    color: var(--cor-texto-sec);
+    @apply text-textSecondary;
     font-weight: 400;
     font-size: 12px;
   }
@@ -198,13 +231,13 @@
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 bg-transparent text-primary font-medium rounded-[10px] px-4 border border-primary/25 transition-colors hover:bg-primary/5 disabled:opacity-60;
+    @apply inline-flex items-center justify-center gap-2 bg-transparent text-ink font-medium rounded-[10px] px-4 border border-ink/25 transition-colors hover:bg-ink/5 disabled:opacity-60;
     min-height: 48px;
   }
 
   .input-field {
-    @apply w-full rounded-[10px] bg-branco px-4 py-3 text-primary outline-none transition-shadow placeholder:text-textSecondary/60 focus:border-accent focus:ring-2 focus:ring-accent/30;
-    border: 1px solid #e0d9ce; /* borda exata do original */
+    @apply w-full rounded-[10px] bg-branco px-4 py-3 text-ink outline-none transition-shadow placeholder:text-textSecondary/60 focus:border-accent focus:ring-2 focus:ring-accent/30;
+    border: 1px solid var(--color-border);
   }
 
   .badge-pill {
@@ -223,7 +256,7 @@
   .progress-track {
     @apply w-full overflow-hidden;
     height: 6px;
-    background: #e8e3db; /* trilha exata do original */
+    background: var(--color-track);
     border-radius: 999px;
   }
   .progress-fill {
@@ -242,7 +275,7 @@
     @apply bg-primary text-white ml-auto;
   }
   .chat-bubble.ai {
-    @apply bg-surface text-primary mr-auto;
+    @apply bg-surface text-ink mr-auto;
   }
 
   /* ===== Cabeçalho de página (fiel ao original) ===== */
@@ -323,7 +356,7 @@
     display: grid;
     place-items: center;
     background: var(--cor-destaque);
-    color: var(--cor-branco);
+    color: #fff;
     font-size: 12px;
     font-weight: 500;
     flex: none;

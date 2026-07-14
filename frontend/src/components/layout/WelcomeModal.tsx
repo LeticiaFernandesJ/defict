@@ -47,7 +47,7 @@ export function WelcomeModal({ imc, classificacaoImc, metaCalorica }: Props) {
           🎉
         </div>
 
-        <h2 className="mb-1 font-display text-2xl font-bold text-primary">
+        <h2 className="mb-1 font-display text-2xl font-bold text-ink">
           Olá, {primeiroNome(profile.nome)}!
         </h2>
 
@@ -56,11 +56,11 @@ export function WelcomeModal({ imc, classificacaoImc, metaCalorica }: Props) {
         <div className="mb-6 space-y-2 rounded-2xl bg-surface p-4 text-left">
           <div className="flex justify-between">
             <span className="text-xs text-textSecondary">Meta calórica</span>
-            <span className="text-sm font-semibold text-primary">{fmtNum(metaCalorica)} kcal/dia</span>
+            <span className="text-sm font-semibold text-ink">{fmtNum(metaCalorica)} kcal/dia</span>
           </div>
           <div className="flex justify-between">
             <span className="text-xs text-textSecondary">IMC atual</span>
-            <span className="text-sm font-semibold text-primary">
+            <span className="text-sm font-semibold text-ink">
               {fmtNum(imc, 1)} — {classificacaoImc}
             </span>
           </div>

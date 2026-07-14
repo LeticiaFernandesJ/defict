@@ -51,7 +51,7 @@ export function BottomNav() {
             className="w-full rounded-t-card bg-branco p-4 animate-scaleIn"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-primary/15" />
+            <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-ink/15" />
             <div className="grid grid-cols-3 gap-2">
               {extras.map(({ to, label, icon: Icon }) => (
                 <button

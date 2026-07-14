@@ -29,13 +29,13 @@ export function Modal({ open, onClose, title, children }: ModalProps) {
       >
         <div className="mb-4 flex items-center justify-between">
           {title ? (
-            <h2 className="font-display text-[19px] font-semibold text-primary">{title}</h2>
+            <h2 className="font-display text-[19px] font-semibold text-ink">{title}</h2>
           ) : (
             <span />
           )}
           <button
             onClick={onClose}
-            className="rounded-full p-1 text-textSecondary hover:bg-primary/5"
+            className="rounded-full p-1 text-textSecondary hover:bg-ink/5"
             aria-label="Fechar"
           >
             <X size={20} />
