@@ -19,7 +19,6 @@ import { Refeicoes } from './pages/Refeicoes';
 import { Agua } from './pages/Agua';
 import { Peso } from './pages/Peso';
 import { Atividade } from './pages/Atividade';
-import { IA } from './pages/IA';
 import { Configuracoes } from './pages/Configuracoes';
 import { Notificacoes } from './pages/Notificacoes';
 import { Mounjaro } from './pages/Mounjaro';
@@ -57,7 +56,6 @@ export default function App() {
             <Route path="/atividade" element={<Atividade />} />
             <Route path="/agua" element={<Agua />} />
             <Route path="/peso" element={<Peso />} />
-            <Route path="/ia" element={<IA />} />
             <Route path="/configuracoes" element={<Configuracoes />} />
             <Route path="/configuracoes/notificacoes" element={<Notificacoes />} />
             <Route element={<MounjaroRoute />}>

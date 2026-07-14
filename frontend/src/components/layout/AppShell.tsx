@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { BottomNav } from './BottomNav';
 import { Header } from './Header';
+import { AssistenteIA } from '../ia/AssistenteIA';
 
 /** Shell responsivo: sidebar (desktop) + header/bottom-nav (mobile). */
 export function AppShell() {
@@ -18,6 +19,7 @@ export function AppShell() {
         </main>
       </div>
       <BottomNav />
+      <AssistenteIA />
     </div>
   );
 }

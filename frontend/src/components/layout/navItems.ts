@@ -4,7 +4,6 @@ import {
   UtensilsCrossed,
   Scale,
   Droplet,
-  Sparkles,
   Settings,
   Syringe,
   type LucideIcon,
@@ -27,7 +26,6 @@ export const NAV_ITEMS: NavItem[] = [
   { to: '/refeicoes', label: 'Refeições', icon: UtensilsCrossed, primaryMobile: true },
   { to: '/peso', label: 'Peso', icon: Scale, primaryMobile: true },
   { to: '/agua', label: 'Água', icon: Droplet },
-  { to: '/ia', label: 'IA', icon: Sparkles },
   { to: '/mounjaro', label: 'Mounjaro', icon: Syringe, mounjaroOnly: true },
   { to: '/configuracoes', label: 'Configurações', icon: Settings },
 ];

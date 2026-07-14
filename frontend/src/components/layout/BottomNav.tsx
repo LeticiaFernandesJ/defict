@@ -63,7 +63,7 @@ export function BottomNav() {
                   className="flex flex-col items-center gap-2 rounded-card p-4 hover:bg-surface"
                 >
                   <Icon size={22} className="text-accent" />
-                  <span className="text-xs">{label === 'IA' ? 'IA — Gemini' : label}</span>
+                  <span className="text-xs">{label}</span>
                 </button>
               ))}
             </div>
