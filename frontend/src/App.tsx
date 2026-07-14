@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { useAuthStore } from './stores/authStore';
 import { AppShell } from './components/layout/AppShell';
+import { InstallBanner } from './components/pwa/InstallBanner';
 import {
   MounjaroRoute,
   ProtectedRoute,
@@ -67,6 +68,7 @@ export default function App() {
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      <InstallBanner />
     </BrowserRouter>
   );
 }
