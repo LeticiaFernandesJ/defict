@@ -110,7 +110,8 @@ create table if not exists public.configuracoes_notificacao (
   usuario_id      uuid not null references public.profiles (id) on delete cascade,
   tipo            text not null check (tipo in
                     ('RefeicaoNaoRegistrada','RefeicaoMetaProxima','RefeicaoMetaUltrapassada',
-                     'AguaNaoRegistrada','AguaMetaNaoAtingida','MounjaroProximaDose','MounjaroDiaDaDose')),
+                     'AguaNaoRegistrada','AguaMetaNaoAtingida','AtividadeNaoRegistrada',
+                     'MounjaroProximaDose','MounjaroDiaDaDose')),
   horario_gatilho time not null,
   ativo           boolean not null default true,
   ultimo_disparo  timestamptz

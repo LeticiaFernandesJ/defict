@@ -26,6 +26,7 @@ export type NotificacaoTipo =
   | 'RefeicaoMetaUltrapassada'
   | 'AguaNaoRegistrada'
   | 'AguaMetaNaoAtingida'
+  | 'AtividadeNaoRegistrada'
   | 'MounjaroProximaDose'
   | 'MounjaroDiaDaDose';
 
@@ -205,6 +206,7 @@ export const LABEL_NOTIFICACAO: Record<NotificacaoTipo, string> = {
   RefeicaoMetaUltrapassada: 'Meta calórica ultrapassada',
   AguaNaoRegistrada: 'Água não registrada',
   AguaMetaNaoAtingida: 'Meta de água não atingida',
+  AtividadeNaoRegistrada: 'Treino do dia não marcado',
   MounjaroProximaDose: 'Próxima dose de Mounjaro',
   MounjaroDiaDaDose: 'Dia da dose de Mounjaro',
 };
@@ -215,6 +217,7 @@ export const TIPOS_NOTIFICACAO: NotificacaoTipo[] = [
   'RefeicaoMetaUltrapassada',
   'AguaNaoRegistrada',
   'AguaMetaNaoAtingida',
+  'AtividadeNaoRegistrada',
   'MounjaroProximaDose',
   'MounjaroDiaDaDose',
 ];

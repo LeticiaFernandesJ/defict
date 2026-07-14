@@ -46,6 +46,29 @@ function diasDesde(dataISO: string): number {
   return Math.floor((Date.now() - new Date(dataISO).getTime()) / 86400000);
 }
 
+// Nome do dia da semana (pt-BR) e semana ISO "AAAA-Www" — mesma lógica de
+// frontend/src/lib/treinoUtils.ts, usando a data do servidor (UTC).
+const DIAS_PT = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+function diaSemanaHoje(): string {
+  return DIAS_PT[new Date().getUTCDay()];
+}
+function anoSemanaHoje(): string {
+  const agora = new Date();
+  const dt = new Date(Date.UTC(agora.getUTCFullYear(), agora.getUTCMonth(), agora.getUTCDate()));
+  const dia = (dt.getUTCDay() + 6) % 7; // segunda = 0
+  dt.setUTCDate(dt.getUTCDate() - dia + 3); // quinta desta semana
+  const primeiraQuinta = new Date(Date.UTC(dt.getUTCFullYear(), 0, 4));
+  const semana =
+    1 +
+    Math.round(
+      ((dt.getTime() - primeiraQuinta.getTime()) / 86400000 -
+        3 +
+        ((primeiraQuinta.getUTCDay() + 6) % 7)) /
+        7,
+    );
+  return `${dt.getUTCFullYear()}-W${String(semana).padStart(2, '0')}`;
+}
+
 Deno.serve(async () => {
   const supabase = createClient(SUPABASE_URL, SERVICE_ROLE);
   const hoje = hojeISO();
@@ -67,6 +90,8 @@ Deno.serve(async () => {
     let temRefeicaoHoje: boolean | null = null;
     let aguaHoje: number | null = null;
     let ultimaMounjaro: string | null | undefined = undefined;
+    let treinoAgendadoHoje: boolean | null = null;
+    let treinoConcluidoHoje: boolean | null = null;
 
     const carregarRefeicoes = async () => {
       if (calorias !== null) return;
@@ -94,6 +119,26 @@ Deno.serve(async () => {
         .from('registros_mounjaro').select('data_aplicacao').eq('usuario_id', p.id)
         .order('data_aplicacao', { ascending: false }).limit(1).maybeSingle();
       ultimaMounjaro = data?.data_aplicacao ?? null;
+    };
+    const carregarAtividade = async () => {
+      if (treinoAgendadoHoje !== null) return;
+      const { data: plano } = await supabase
+        .from('planos_treino').select('id, dias').eq('usuario_id', p.id).eq('ativo', true)
+        .order('criado_em', { ascending: false }).limit(1).maybeSingle();
+      const hojeAbrev = diaSemanaHoje().toLowerCase().slice(0, 3);
+      const diaPlano = (plano?.dias ?? []).find(
+        (d: any) => (d?.diaSemana ?? '').toLowerCase().startsWith(hojeAbrev),
+      );
+      if (!plano || !diaPlano) {
+        treinoAgendadoHoje = false;
+        treinoConcluidoHoje = true; // nada agendado → não "falta" marcar nada
+        return;
+      }
+      treinoAgendadoHoje = true;
+      const { data: conclusao } = await supabase
+        .from('treino_conclusoes').select('id').eq('usuario_id', p.id).eq('plano_id', plano.id)
+        .eq('dia_semana', diaPlano.diaSemana).eq('ano_semana', anoSemanaHoje()).maybeSingle();
+      treinoConcluidoHoje = !!conclusao;
     };
 
     const meta = metaCalorica(p);
@@ -134,6 +179,12 @@ Deno.serve(async () => {
           await carregarAgua();
           if (noHorario(cfg.horario_gatilho) && aguaHoje! < (p.meta_agua ?? 2000)) {
             dispara = true; corpo = `Faltam ${(p.meta_agua ?? 2000) - aguaHoje!} ml para a meta de água.`;
+          }
+          break;
+        case 'AtividadeNaoRegistrada':
+          await carregarAtividade();
+          if (treinoAgendadoHoje && !treinoConcluidoHoje && noHorario(cfg.horario_gatilho)) {
+            dispara = true; corpo = 'Hoje é dia de treino e você ainda não marcou como feito.';
           }
           break;
         case 'MounjaroProximaDose':
