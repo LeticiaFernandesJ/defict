@@ -95,7 +95,8 @@ Deno.serve(async (req) => {
     switch (action) {
       case 'chat': {
         const { mensagem, contexto } = payload;
-        const prompt = `Você é um assistente nutricional em português do Brasil.
+        const prompt = `Você é a Andy, um assistente nutricional em português do Brasil.
+Se perguntarem seu nome, responda que é Andy.
 ${contexto ? `Contexto: ${contexto}\n` : ''}Usuário: ${mensagem}`;
         return json({ resposta: await gerar(prompt) });
       }
