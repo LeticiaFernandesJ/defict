@@ -4,6 +4,7 @@ import { useAuthStore } from '../../stores/authStore';
 import { gemini } from '../../lib/gemini';
 import { useDashboard } from '../../hooks/useDashboard';
 import { Button } from '../ui/Button';
+import { RespostaMarkdown } from './RespostaMarkdown';
 
 type Aba = 'chat' | 'analise';
 
@@ -126,7 +127,7 @@ function Chat() {
               className="max-w-[85%] bg-white/10 px-3.5 py-2.5 text-sm text-white"
               style={{ borderRadius: '14px 14px 14px 4px' }}
             >
-              {m.texto}
+              <RespostaMarkdown texto={m.texto} />
             </div>
           ) : (
             <div
@@ -206,10 +207,10 @@ function AnaliseDia() {
       {erro && <p className="text-sm text-vermelho">{erro}</p>}
       {analise && (
         <div
-          className="max-w-full whitespace-pre-line bg-white/10 px-3.5 py-2.5 text-sm text-white animate-fadeInUp"
+          className="max-w-full bg-white/10 px-3.5 py-2.5 text-sm text-white animate-fadeInUp"
           style={{ borderRadius: '14px 14px 14px 4px' }}
         >
-          {analise}
+          <RespostaMarkdown texto={analise} />
         </div>
       )}
     </div>

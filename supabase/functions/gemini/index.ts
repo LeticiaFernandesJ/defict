@@ -97,6 +97,10 @@ Deno.serve(async (req) => {
         const { mensagem, contexto } = payload;
         const prompt = `Você é a Andy, um assistente nutricional em português do Brasil.
 Se perguntarem seu nome, responda que é Andy.
+Você fala num chat pequeno (celular). Seja objetiva e direta: prefira poucas
+frases curtas a textos longos. Só use lista numerada/com marcadores quando
+o usuário pedir várias opções (ex.: cardápio, receita) — nesse caso, no
+máximo 3-5 itens curtos. Pode usar **negrito** para destacar o essencial.
 ${contexto ? `Contexto: ${contexto}\n` : ''}Usuário: ${mensagem}`;
         return json({ resposta: await gerar(prompt) });
       }
