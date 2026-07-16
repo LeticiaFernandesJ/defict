@@ -13,7 +13,6 @@ import {
   Scale,
   ShieldCheck,
   ChefHat,
-  MessageCircle,
   CalendarDays,
   Activity,
   Lock,
@@ -201,15 +200,13 @@ export function Landing() {
             </p>
             <ul className="mt-6 space-y-3">
               {[
-                { icon: ChefHat, t: 'Monta receitas com o que você tem na geladeira, do jeito rápido e prático.' },
-                { icon: MessageCircle, t: 'Tira dúvidas sobre nutrientes, rótulos e escolhas no mercado ou restaurante.' },
-                { icon: CalendarDays, t: 'Sugere substituições saudáveis e ajuda a planejar as compras da semana.' },
-                { icon: HeartPulse, t: 'Analisa seu dia com uma mensagem curta e motivadora — sem julgamento.' },
-              ].map(({ icon: Icon, t }) => (
+                'Monta receitas com o que você tem na geladeira, do jeito rápido e prático.',
+                'Tira dúvidas sobre nutrientes, rótulos e escolhas no mercado ou restaurante.',
+                'Sugere substituições saudáveis e ajuda a planejar as compras da semana.',
+                'Analisa seu dia com uma mensagem curta e motivadora — sem julgamento.',
+              ].map((t) => (
                 <li key={t} className="flex items-start gap-3 text-sm text-white/85">
-                  <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10">
-                    <Icon size={15} className="text-white" />
-                  </span>
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
                   {t}
                 </li>
               ))}
@@ -462,7 +459,7 @@ function FeatureSpotlight({
         <ul className="mt-4 space-y-2">
           {bullets.map((b) => (
             <li key={b} className="flex items-start gap-2.5 text-sm">
-              <Check size={16} className="mt-0.5 shrink-0 text-verde" /> {b}
+              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-verde" /> {b}
             </li>
           ))}
         </ul>
