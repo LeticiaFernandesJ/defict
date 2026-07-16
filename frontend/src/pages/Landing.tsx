@@ -283,7 +283,7 @@ export function Landing() {
 
         <Reveal className="mx-auto max-w-md">
           <div className="relative rounded-card bg-branco p-7 shadow-[0_30px_60px_-20px_rgba(27,42,74,0.28)] ring-2 ring-accent">
-            <span className="badge-pill green absolute -top-3 left-1/2 -translate-x-1/2 shadow-sm">
+            <span className="badge-pill green absolute -top-7 left-1/2 z-10 -translate-x-1/2 shadow-sm">
               <Sparkles size={13} /> 7 dias grátis
             </span>
 
