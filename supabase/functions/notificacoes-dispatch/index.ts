@@ -6,8 +6,9 @@
 // Secrets: supabase secrets set VAPID_PUBLIC_KEY=... VAPID_PRIVATE_KEY=... VAPID_SUBJECT=mailto:voce@exemplo.com
 // Cron (SQL): ver supabase/migrations/0005_cron_notificacoes.sql
 //
-// OBS de fuso: sem timezone por usuário, comparamos com a hora do servidor (UTC).
-// Ajuste se precisar de precisão por fuso.
+// OBS de fuso: todos os horários (horario_gatilho, "hoje", dia da semana, semana
+// ISO) são avaliados no horário de Brasília (America/Sao_Paulo), não UTC.
+// Ainda é um fuso único para todos os usuários (sem preferência por usuário).
 
 import { createClient } from 'jsr:@supabase/supabase-js@2';
 import webpush from 'npm:web-push@3.6.7';
@@ -33,11 +34,27 @@ function metaCalorica(p: any): number | null {
   return Math.max(1200, tdee - 500);
 }
 
+const TZ = 'America/Sao_Paulo';
+
+/** Ano/mês/dia/hora/minuto no horário de Brasília, extraídos via Intl (lida
+ * com o fuso corretamente, sem precisar calcular o offset manualmente). */
+function partesBrasilia(d: Date = new Date()): { year: string; month: string; day: string; hour: string; minute: string } {
+  const fmt = new Intl.DateTimeFormat('en-CA', {
+    timeZone: TZ,
+    year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
+  });
+  const partes: Record<string, string> = {};
+  for (const p of fmt.formatToParts(d)) partes[p.type] = p.value;
+  return partes as any;
+}
 function hojeISO(): string {
-  return new Date().toISOString().slice(0, 10);
+  const v = partesBrasilia();
+  return `${v.year}-${v.month}-${v.day}`;
 }
 function horaAgora(): string {
-  return new Date().toISOString().slice(11, 16); // HH:mm UTC
+  const v = partesBrasilia();
+  return `${v.hour}:${v.minute}`;
 }
 function jaDisparouHoje(ultimo: string | null): boolean {
   return !!ultimo && ultimo.slice(0, 10) === hojeISO();
@@ -55,14 +72,19 @@ function diasDesde(dataISO: string): number {
 }
 
 // Nome do dia da semana (pt-BR) e semana ISO "AAAA-Www" — mesma lógica de
-// frontend/src/lib/treinoUtils.ts, usando a data do servidor (UTC).
+// frontend/src/lib/treinoUtils.ts, mas usando a data civil de Brasília (não UTC).
 const DIAS_PT = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+/** Data UTC "sintética" à meia-noite, só para representar o dia civil de
+ * Brasília e reaproveitar os cálculos de dia-da-semana/semana ISO abaixo. */
+function dataCivilBrasilia(): Date {
+  const v = partesBrasilia();
+  return new Date(Date.UTC(Number(v.year), Number(v.month) - 1, Number(v.day)));
+}
 function diaSemanaHoje(): string {
-  return DIAS_PT[new Date().getUTCDay()];
+  return DIAS_PT[dataCivilBrasilia().getUTCDay()];
 }
 function anoSemanaHoje(): string {
-  const agora = new Date();
-  const dt = new Date(Date.UTC(agora.getUTCFullYear(), agora.getUTCMonth(), agora.getUTCDate()));
+  const dt = dataCivilBrasilia();
   const dia = (dt.getUTCDay() + 6) % 7; // segunda = 0
   dt.setUTCDate(dt.getUTCDate() - dia + 3); // quinta desta semana
   const primeiraQuinta = new Date(Date.UTC(dt.getUTCFullYear(), 0, 4));
