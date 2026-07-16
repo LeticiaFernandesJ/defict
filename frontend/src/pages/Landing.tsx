@@ -21,17 +21,17 @@ import {
 
 const RECURSOS_GRID = [
   { icon: Target, titulo: 'Meta calculada, não chutada', texto: 'IMC, TMB e TDEE calculados a partir do seu perfil, com opção de ajuste manual.' },
-  { icon: Scale, titulo: 'Peso em evolução', texto: 'Histórico e gráfico — veja a tendência, não só o número do dia.' },
+  { icon: Scale, titulo: 'Peso em evolução', texto: 'Histórico e gráfico, para ver a tendência, não só o número do dia.' },
   { icon: Droplets, titulo: 'Hidratação', texto: 'Meta diária de água acompanhada ao longo do dia.' },
   { icon: Syringe, titulo: 'Acompanhamento de Mounjaro', texto: 'Dose, local de aplicação e sintomas, para quem usa tirzepatida. Opcional.' },
-  { icon: Bell, titulo: 'Lembretes que insistem', texto: 'Água, refeição e treino não marcados repetem o aviso a cada 2h — só até você resolver.' },
+  { icon: Bell, titulo: 'Lembretes que insistem', texto: 'Água, refeição e treino não marcados repetem o aviso a cada 2h, só até você resolver.' },
   { icon: WifiOff, titulo: 'Funciona offline', texto: 'Instale na tela inicial e use como app nativo (PWA), mesmo sem internet.' },
   { icon: Lock, titulo: 'Privacidade em primeiro lugar', texto: 'Dados isolados por usuário e tratados conforme a LGPD.' },
 ];
 
 const PASSOS = [
   { n: 1, titulo: 'Crie sua conta e faça o onboarding', texto: 'Sexo, idade, altura, peso atual e meta, nível de atividade.' },
-  { n: 2, titulo: 'Registre no dia a dia', texto: 'Refeições, peso e água — a Andy ajuda a calcular os nutrientes.' },
+  { n: 2, titulo: 'Registre no dia a dia', texto: 'Refeições, peso e água. A Andy ajuda a calcular os nutrientes.' },
   { n: 3, titulo: 'Acompanhe e ajuste a rota', texto: 'Use os gráficos e a meta calórica para manter a consistência.' },
 ];
 
@@ -141,7 +141,7 @@ export function Landing() {
         <Reveal className="mx-auto mb-14 max-w-2xl text-center">
           <span className="text-xs font-semibold uppercase tracking-widest text-accent">Funcionalidades</span>
           <h2 className="mt-2 font-display text-3xl font-bold md:text-4xl">Cada função pensada para tirar peso das suas costas</h2>
-          <p className="mt-3 text-textSecondary">Não é só registrar números — é o app fazendo o trabalho chato por você.</p>
+          <p className="mt-3 text-textSecondary">Não é só registrar números. É o app fazendo o trabalho chato por você.</p>
         </Reveal>
 
         <div className="space-y-16 md:space-y-24">
@@ -150,7 +150,7 @@ export function Landing() {
             icon={ChefHat}
             selo="Refeições + IA"
             titulo="Descreva o que comeu. A IA calcula o resto."
-            texto="Sem tabela nutricional, sem calculadora. Digite algo como “200g de arroz e um bife” em português mesmo, e a IA estima calorias e macros na hora — já registrado no seu dia."
+            texto="Sem tabela nutricional, sem calculadora. Digite algo como “200g de arroz e um bife” em português mesmo, e a IA estima calorias e macros na hora, já registrado no seu dia."
             bullets={['Cálculo automático de calorias e macros', 'Edição manual sempre que quiser ajustar', 'Histórico completo por refeição']}
           >
             <MockNutrientes />
@@ -172,7 +172,7 @@ export function Landing() {
             icon={Activity}
             selo="Treino + IA"
             titulo="Treino sob medida, nos dias que você escolher"
-            texto="Diga quais dias da semana quer treinar, seu objetivo e equipamento disponível. A IA monta o plano, e cada dia só libera na data certa — com cronômetro de descanso embutido."
+            texto="Diga quais dias da semana quer treinar, seu objetivo e equipamento disponível. A IA monta o plano, e cada dia só libera na data certa, com cronômetro de descanso embutido."
             bullets={['Plano adaptado ao seu objetivo e equipamento', 'Cartões que só liberam no dia certo', 'Progressão de nível por consistência']}
           >
             <MockTreino />
@@ -195,15 +195,15 @@ export function Landing() {
               Converse com a Andy sempre que precisar
             </h2>
             <p className="mt-4 text-white/70">
-              A Andy fica a um toque de distância em qualquer tela do app — um botão flutuante
-              sempre à mão. Ela não é só uma calculadora: é uma conversa de verdade sobre comida.
+              A Andy fica a um toque de distância em qualquer tela do app, sempre em um botão
+              flutuante à mão. Ela não é só uma calculadora: é uma conversa de verdade sobre comida.
             </p>
             <ul className="mt-6 space-y-3">
               {[
                 'Monta receitas com o que você tem na geladeira, do jeito rápido e prático.',
                 'Tira dúvidas sobre nutrientes, rótulos e escolhas no mercado ou restaurante.',
                 'Sugere substituições saudáveis e ajuda a planejar as compras da semana.',
-                'Analisa seu dia com uma mensagem curta e motivadora — sem julgamento.',
+                'Analisa seu dia com uma mensagem curta e motivadora, sem julgamento.',
               ].map((t) => (
                 <li key={t} className="flex items-start gap-3 text-sm text-white/85">
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
@@ -638,7 +638,7 @@ function MockAndyChat() {
           Me dá uma receita rápida com frango e batata doce?
         </div>
         <div className="max-w-[90%] rounded-[14px] rounded-tl-[4px] bg-white/10 px-3.5 py-2.5 text-sm text-white">
-          <p className="mb-1.5"><b>Frango grelhado com batata doce</b> — 20 min:</p>
+          <p className="mb-1.5"><b>Frango grelhado com batata doce</b> (20 min):</p>
           <p>1. Tempere o frango e grelhe 6 min de cada lado.</p>
           <p>2. Cozinhe a batata doce em cubos no vapor.</p>
           <p>3. Finalize com azeite e ervas. ~420 kcal.</p>
